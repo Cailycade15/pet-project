@@ -1,0 +1,23 @@
+.card_product{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
+    border-radius: 10px;
+    
+}
+
+.class_flex_column{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.product_image{
+    width: 150px;
+    max-height: 200px;
+}

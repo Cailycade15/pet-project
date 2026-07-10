@@ -1,0 +1,16 @@
+.filters_menu{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filters_menu_item{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+
+}
+
+.filters_menu_item:hover{
+    cursor: pointer;
+}

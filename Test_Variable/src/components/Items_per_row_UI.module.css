@@ -1,0 +1,9 @@
+.icon-container{
+  display: flex;
+  gap: 10px;
+}
+
+.grid_img{
+  width: 20px;
+  height: 20px;
+}

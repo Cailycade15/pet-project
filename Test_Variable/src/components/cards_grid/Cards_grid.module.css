@@ -1,0 +1,23 @@
+.grid_container{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-gap: 20px;
+}
+
+.grid_products_container{
+    display: grid;
+    grid-auto-rows: minmax(150px, auto);
+    grid-gap: 20px;
+}
+
+.grid_2x2{
+    grid-template-columns: 1fr 1fr;
+}
+
+.grid_3x3{
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid_4x4{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
