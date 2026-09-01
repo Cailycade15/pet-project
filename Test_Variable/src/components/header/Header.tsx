@@ -3,6 +3,7 @@ import cl from "./Header.module.css";
 import Menu from "./show_menu";
 import logo_img from "@/assets/images/logo.png"
 import Mini_Cart from "./mini_cart/Mini_Cart";
+import Swither_language from "../../shared_components/switcher_language/Swither_language";
 
 
 const Header = () => {
@@ -19,7 +20,7 @@ const Header = () => {
                     </div>
                     <div className={cl.div_right}>
                         <Mini_Cart />
-                        
+                        <Swither_language />
                     </div>
                 </div>
             </div>

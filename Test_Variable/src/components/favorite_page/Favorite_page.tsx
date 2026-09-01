@@ -9,20 +9,17 @@ import Pagination from "../pagination/Pagination";
 
 const Favorite_Page = () => {
 
-    let favorites_id: number[] = [];
-    const saved = localStorage.getItem("favorites");
-    if (saved) {
-        try {
-            favorites_id = JSON.parse(saved);
-        } catch {
-            favorites_id = [];
-        }
-    }
-
+    const [favorites_id, setFavorites_id] = useState<number[]>(() => {
+        const saved = localStorage.getItem("favorites");
+        return saved 
+            ?   JSON.parse(saved)
+            :   [];
+    });
 
     const [favoriteProducts, setFavoriteProducts] = useState<type_Get_Product[]>([]);
 
     useEffect(() => {
+
         const loadFavorites = async () => {
             const products = await Promise.all(
                 favorites_id.map(async (id) => {
@@ -40,7 +37,8 @@ const Favorite_Page = () => {
         };
 
         loadFavorites();
-    }, []);
+        localStorage.setItem("favorites", JSON.stringify(favorites_id));
+    }, [favorites_id]);
 
 
 
@@ -130,6 +128,8 @@ const Favorite_Page = () => {
                             <Card_Product 
                                 key={product.id} 
                                 product={product}
+                                favoriteProducts={favorites_id}
+                                setFavorites={setFavorites_id}
                             />
                         ))}
 

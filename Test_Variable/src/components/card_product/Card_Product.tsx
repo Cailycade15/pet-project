@@ -64,7 +64,6 @@ const Card_Product = ({product, favoriteProducts, setFavorites, compare, setComp
         item => item.product.id === product.id
     );
 
-
     return(
         <div className={cl.card_product}>
 
