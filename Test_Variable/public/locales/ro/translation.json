@@ -1,0 +1,49 @@
+{
+  "header": {
+    "siteName": "Site-ul nostru",
+    "logoAlt": "RBS Reactor"
+  },
+  "menu": {
+    "home": "Acasă",
+    "favorites": "Favorite",
+    "compare": "Comparare"
+  },
+  "product": {
+    "addToCart": "Adaugă în coș",
+    "inCart": "În coș",
+    "addToFavorites": "Adaugă la favorite",
+    "addToCompare": "Adaugă la comparare",
+    "share": "Distribuie",
+    "price": "{{price}} $"
+  },
+  "cart": {
+    "title": "Coș",
+    "total": "Total:",
+    "clear": "Golește coșul",
+    "buy": "Cumpără",
+    "iconAlt": "pictogramă coș",
+    "productImageAlt": "imagine produs"
+  },
+  "favorites": {
+    "title": "Produse favorite",
+    "clear": "Șterge favoritele",
+    "empty": "Nu există produse favorite"
+  },
+  "compare": {
+    "clear": "Șterge comparația"
+  },
+  "filters": {
+    "title": "Categorii",
+    "allCategories": "Toate categoriile"
+  },
+  "toolbar": {
+    "showLabel": "Afișează:",
+    "itemsPerRowAlt": "{{item}} pe rând"
+  },
+  "pagination": {
+    "dots": "…"
+  },
+  "common": {
+    "backToTop": "Sus"
+  }
+}

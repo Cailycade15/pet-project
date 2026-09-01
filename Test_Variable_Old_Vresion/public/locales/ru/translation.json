@@ -1,0 +1,49 @@
+{
+  "header": {
+    "siteName": "Наш сайт",
+    "logoAlt": "RBS Reactor"
+  },
+  "menu": {
+    "home": "Главная",
+    "favorites": "Избранное",
+    "compare": "Сравнение"
+  },
+  "product": {
+    "addToCart": "Добавить в корзину",
+    "inCart": "В корзине",
+    "addToFavorites": "Добавить в избранное",
+    "addToCompare": "Добавить к сравнению",
+    "share": "Поделиться",
+    "price": "{{price}} $"
+  },
+  "cart": {
+    "title": "Корзина",
+    "total": "Итого:",
+    "clear": "Очистить корзину",
+    "buy": "Купить",
+    "iconAlt": "иконка корзины",
+    "productImageAlt": "изображение товара"
+  },
+  "favorites": {
+    "title": "Избранные товары",
+    "clear": "Очистить избранное",
+    "empty": "В избранном пока ничего нет"
+  },
+  "compare": {
+    "clear": "Очистить сравнение"
+  },
+  "filters": {
+    "title": "Категории",
+    "allCategories": "Все категории"
+  },
+  "toolbar": {
+    "showLabel": "Показывать:",
+    "itemsPerRowAlt": "{{item}} в ряд"
+  },
+  "pagination": {
+    "dots": "…"
+  },
+  "common": {
+    "backToTop": "Наверх"
+  }
+}

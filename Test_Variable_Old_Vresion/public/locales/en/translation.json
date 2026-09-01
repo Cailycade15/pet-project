@@ -1,0 +1,49 @@
+{
+  "header": {
+    "siteName": "Our Site",
+    "logoAlt": "RBS Reactor"
+  },
+  "menu": {
+    "home": "Home",
+    "favorites": "Favorites",
+    "compare": "Compare"
+  },
+  "product": {
+    "addToCart": "Add to cart",
+    "inCart": "In cart",
+    "addToFavorites": "Add to favorites",
+    "addToCompare": "Add to compare",
+    "share": "Share",
+    "price": "{{price}}$"
+  },
+  "cart": {
+    "title": "Cart",
+    "total": "Total:",
+    "clear": "Clear cart",
+    "buy": "Checkout",
+    "iconAlt": "cart icon",
+    "productImageAlt": "product image"
+  },
+  "favorites": {
+    "title": "Favorite products",
+    "clear": "Clear favorites",
+    "empty": "No favorites yet"
+  },
+  "compare": {
+    "clear": "Clear compare list"
+  },
+  "filters": {
+    "title": "Categories",
+    "allCategories": "All categories"
+  },
+  "toolbar": {
+    "showLabel": "Show:",
+    "itemsPerRowAlt": "{{item}} per row"
+  },
+  "pagination": {
+    "dots": "…"
+  },
+  "common": {
+    "backToTop": "Back to top"
+  }
+}

@@ -1,0 +1,129 @@
+.languageSwitcher {
+    position: relative;
+    display: inline-flex;
+}
+
+/* Основная кнопка */
+
+.languageButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    min-width: 66px;
+    height: 40px;
+
+    padding: 0 14px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+
+    background: var(--color-surface-muted);
+    color: var(--color-primary);
+
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+
+    cursor: pointer;
+
+    transition:
+        background-color var(--transition-fast),
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.languageButton:hover {
+    background: var(--color-primary-light);
+    border-color: var(--color-primary-light);
+}
+
+.languageButton:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+
+/* Стрелка */
+
+.arrow {
+    font-size: 10px;
+    transition: transform 0.25s ease;
+}
+
+.arrowOpen {
+    transform: rotate(180deg);
+}
+
+
+/* Dropdown */
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+
+    min-width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    padding: 6px;
+
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    box-shadow: var(--shadow-md);
+
+    z-index: 100;
+}
+
+
+/* Вариант языка */
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 36px;
+
+    padding: 0 12px;
+
+    border: none;
+    border-radius: var(--radius-sm);
+
+    background: transparent;
+    color: var(--color-text-muted);
+
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+
+    cursor: pointer;
+
+    transition:
+        color var(--transition-fast),
+        background-color var(--transition-fast);
+}
+
+.dropdownItem:hover {
+    background: var(--color-surface-muted);
+    color: var(--color-primary);
+}
+
+.dropdownItem:active {
+    background: var(--color-primary-light);
+}
+
+.dropdownItemActive {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
