@@ -20,7 +20,7 @@
     "title": "Cart",
     "total": "Total:",
     "clear": "Clear cart",
-    "buy": "Checkout",
+    "toCart": "Add to cart",
     "iconAlt": "cart icon",
     "productImageAlt": "product image"
   },

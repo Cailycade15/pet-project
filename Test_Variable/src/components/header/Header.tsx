@@ -5,7 +5,6 @@ import logo_img from "@/assets/images/logo.png"
 import Mini_Cart from "./mini_cart/Mini_Cart";
 import Swither_language from "../../shared_components/switcher_language/Swither_language";
 
-
 const Header = () => {
 
     const { t } = useTranslation();

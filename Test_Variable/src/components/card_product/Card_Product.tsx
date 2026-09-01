@@ -1,8 +1,11 @@
 import { Heart, GitCompare, Share2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 import cl from "./Card_Product.module.css";
 import type { type_Get_Product, type_Cart } from "@/types/type_Get_Product";
+
+import { useCartStore } from "../../store/store";
 
 type Props = {
     product: type_Get_Product,
@@ -15,6 +18,11 @@ type Props = {
 }
 
 const Card_Product = ({product, favoriteProducts, setFavorites, compare, setCompare, addedToCart, setAddedToCart}: Props) => {
+
+
+    const name_cookie_added_to_cart = "added_to_cart";
+
+    const cartUpdated = useCartStore((state) => state.cartUpdated);
 
     const { t } = useTranslation();
 
@@ -40,32 +48,71 @@ const Card_Product = ({product, favoriteProducts, setFavorites, compare, setComp
         }
     }
 
+
     const actionToCart = () => {
-        setAddedToCart?.(prev => {
-            const exists = prev.some(
-                item => item.product.id === product.id
-            );
 
-            if (exists) {
-                return prev.filter(
-                    item => item.product.id !== product.id
-                );
-            }
+        const saved = localStorage.getItem(name_cookie_added_to_cart);
+        const currentCart: type_Cart[] = saved
+        ? JSON.parse(saved)
+        : [];
 
-            return [
-                ...prev,
+        const exists = currentCart.some(
+            item => item.product.id === product.id
+        );
+
+        const newCart = exists
+            ? currentCart.filter(
+                item => item.product.id !== product.id
+            )
+            : [
+                ...currentCart,
                 {
                     product,
                     quantity: 1,
                 },
             ];
-        });
+
+        localStorage.setItem(
+            name_cookie_added_to_cart,
+            JSON.stringify(newCart)
+        );
+
+        setAddedToCart?.(newCart);
+
+        // setAddedToCart?.(prev => {
+        //     const exists = prev.some(
+        //         item => item.product.id === product.id
+        //     );
+
+        //     if (exists) {
+        //         return prev.filter(
+        //             item => item.product.id !== product.id
+        //         );
+        //     }
+
+        //     return [
+        //         ...prev,
+        //         {
+        //             product,
+        //             quantity: 1,
+        //         },
+        //     ];
+        // });
+
+        cartUpdated();
     };
+
+    
+
+    useEffect(() => {
+        localStorage.setItem("added_to_cart", JSON.stringify(addedToCart));
+    }, [addedToCart])
 
 
     const isAddedToCart = addedToCart?.some(
         item => item.product.id === product.id
     );
+
 
     return(
         <div className={cl.card_product}>

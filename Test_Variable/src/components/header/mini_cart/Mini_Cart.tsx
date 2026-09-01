@@ -5,12 +5,14 @@ import type { type_Cart } from "@/types/type_Get_Product";
 import cl from "./Mini_Cart.module.css"
 import { useTranslation } from "react-i18next"
 
+import { useCartStore } from "../../../store/store";
 
 const Mini_Cart = () => {
 
     const { t } = useTranslation();
     const [isSidebarOpen, setSidebarOpen] = useState(false);
 
+    const cartUpdated = useCartStore((state) => state.cartUpdated);
 
     useEffect(() => {
         const handleEscape = (event: KeyboardEvent) => {
@@ -53,37 +55,66 @@ const Mini_Cart = () => {
             : [];
     });
 
+    const cartVersion = useCartStore(
+        (state) => state.cartVersion
+    );
+
+
     useEffect(() => {
-        localStorage.setItem(name_cookie_added_to_cart, JSON.stringify(addedToCart));
-    }, [addedToCart])
+        const saved = localStorage.getItem(name_cookie_added_to_cart);
+
+        setAddedToCart(
+            saved
+                ? JSON.parse(saved) as type_Cart[]
+                : []
+        );
+    }, [cartVersion]);
 
     const plusQuantity = (item: type_Cart) => {
-        setAddedToCart(prev =>
-            prev.map(cartItem =>
+        const newCart = addedToCart.map(cartItem =>
+            cartItem.product.id === item.product.id
+                ? {
+                    ...cartItem,
+                    quantity: cartItem.quantity + 1
+                }
+                : cartItem
+        );
+
+        setAddedToCart(newCart);
+
+        localStorage.setItem(
+            name_cookie_added_to_cart,
+            JSON.stringify(newCart)
+        );
+
+        cartUpdated();
+    };
+
+
+    const minusQuantity = (item: type_Cart) => {
+        const newCart = addedToCart
+            .map(cartItem =>
                 cartItem.product.id === item.product.id
                     ? {
                         ...cartItem,
-                        quantity: cartItem.quantity + 1
+                        quantity: cartItem.quantity - 1
                     }
                     : cartItem
             )
-        );
-    }
+            .filter(cartItem => cartItem.quantity > 0);
 
-    const minusQuantity = (item: type_Cart) => {
-        setAddedToCart(prev =>
-            prev
-                .map(cartItem =>
-                    cartItem.product.id === item.product.id
-                        ? {
-                            ...cartItem,
-                            quantity: cartItem.quantity - 1
-                        }
-                        : cartItem
-                )
-                .filter(cartItem => cartItem.quantity > 0)
+        setAddedToCart(newCart);
+
+        localStorage.setItem(
+            name_cookie_added_to_cart,
+            JSON.stringify(newCart)
         );
-    }
+
+        cartUpdated();
+
+        console.log("Added:", newCart);
+    };
+
 
     const calculate_sum = () => {
         let sum = 0;
@@ -199,13 +230,17 @@ const Mini_Cart = () => {
 
                 <button 
                     className={cl.btn_clear}
-                    onClick={() => setAddedToCart([])}
+                    onClick={() => {
+                        setAddedToCart([]);
+                        localStorage.setItem(name_cookie_added_to_cart, JSON.stringify([]))
+                        cartUpdated();
+                    }}
                     >
                     {t('cart.clear')}
                 </button>
 
                 <button>
-                    {t('cart.buy')}
+                    {t('cart.toCart')}
                 </button>
             </div>
 

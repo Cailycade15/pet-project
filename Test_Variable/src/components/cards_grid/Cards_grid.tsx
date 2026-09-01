@@ -7,6 +7,7 @@ import type {type_Get_Product, type_Cart} from "@/types/type_Get_Product"
 import cl from "./Cards_grid.module.css"
 import Filters from "../filters/Filters"
 import { ALL_CATEGORIES } from "@/constants/categories"
+import { useCartStore } from "../../store/store";
 
 type Props = {
     products: type_Get_Product[],
@@ -109,6 +110,22 @@ const Card_grid = ({products, categorys}: Props) => {
     const changeCategory = (selectCategory: string) => {
         setSelectedCategory(selectCategory);
     }
+
+    const cartVersion = useCartStore(
+        (state) => state.cartVersion
+    );
+
+    useEffect(() => {
+        const saved = localStorage.getItem(name_cookie_added_to_cart);
+
+        if(saved === undefined) return;
+
+        setAddedToCart(
+            saved
+                ? JSON.parse(saved) as type_Cart[]
+                : []
+        );
+    }, [cartVersion]);
 
     return(
     <>
