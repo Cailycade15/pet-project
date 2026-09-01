@@ -1,0 +1,33 @@
+.icon-container {
+  display: flex;
+  gap: 4px;
+
+  padding: 4px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.icon_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+
+  transition: background-color var(--transition-fast);
+}
+
+.icon_button.active,
+.icon_button:hover {
+  background-color: var(--color-primary-light);
+}
+
+.grid_img {
+  width: 18px;
+  height: 18px;
+}

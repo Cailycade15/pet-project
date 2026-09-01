@@ -12,7 +12,15 @@ function App() {
     fetch("https://fakestoreapi.com/products")
     .then(response => response.json())
     .then((data: type_Get_Product[]) => {
-      setProducts(data);
+
+      const bigData = Array.from({ length: 10 }, (_, copyIndex) =>
+            data.map((item, index) => ({
+                ...item,
+                id: copyIndex * data.length + index + 1
+            }))
+        ).flat();
+
+      setProducts(bigData);
       setCategorys([...new Set(data.map(item => item.category))])
     })
     .catch(error => {
@@ -24,7 +32,7 @@ function App() {
 
   return (
     <>
-      <Card_grid products={products} categorys={categorys}/>
+        <Card_grid products={products} categorys={categorys}/>
     </>
   )
 }

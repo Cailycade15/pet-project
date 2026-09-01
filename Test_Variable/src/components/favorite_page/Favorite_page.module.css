@@ -1,0 +1,149 @@
+.grid_container {
+    width: 100%;
+    padding: 40px 0;
+}
+
+.favorite_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #222;
+}
+
+.clear_button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #ff4757;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.clear_button:hover {
+    background: #e84118;
+    transform: translateY(-2px);
+}
+
+.grid_products_container {
+    display: grid;
+    grid-auto-rows: minmax(150px, auto);
+    gap: 24px;
+    width: 100%;
+}
+
+/* Сетка товаров */
+
+.grid_2x2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid_3x3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid_4x4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+
+/* Пустое избранное */
+
+.empty {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    background: #fafafa;
+    border-radius: 20px;
+    color: #777;
+    font-size: 18px;
+}
+
+.empty_icon {
+    font-size: 50px;
+}
+
+
+/* Анимация появления карточек */
+
+.grid_products_container > * {
+    animation: fadeIn .3s ease forwards;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Адаптив */
+
+@media(max-width: 1200px){
+
+    .grid_4x4 {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+}
+
+
+@media(max-width: 900px){
+
+    .grid_3x3,
+    .grid_4x4 {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width: 600px){
+
+    .favorite_header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .grid_2x2,
+    .grid_3x3,
+    .grid_4x4 {
+        grid-template-columns: 1fr;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .clear_button {
+        width: 100%;
+    }
+}
+
+.toolbar {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}

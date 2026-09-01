@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Card_Product from "../card_product/Card_Product"
-import Items_limit_UI from "../Items_limit_UI"
-import Items_per_row_UI from "../Items_per_row_UI"
-import type {type_Get_Product} from "../../types/type_Get_Product"
+import Items_limit_UI from "../items_limit_UI/Items_limit_UI"
+import Items_per_row_UI from "../items_per_row_UI/Items_per_row_UI"
+import Pagination from "../pagination/Pagination"
+import type {type_Get_Product, type_Cart} from "@/types/type_Get_Product"
 import cl from "./Cards_grid.module.css"
 import Filters from "../filters/Filters"
 
@@ -18,6 +19,36 @@ const Card_grid = ({products, categorys}: Props) => {
     const name_cookie_itemsLimit = "itemsLimit";
     const name_cookie_itemsPerRow = "itemsPerRow";
     const name_cookie_selectedCategory = "selectedCategory";
+    const name_cookie_favorites_products = "favorites";
+    const name_cookie_compare_products = "compare";
+    const name_cookie_added_to_cart = "added_to_cart";
+    
+    const [currentPage, setCurrentPage] = useState<number>(0);
+
+    
+    const [addedToCart, setAddedToCart] = useState<type_Cart[]>(() => {
+        const saved = localStorage.getItem(name_cookie_added_to_cart);
+
+        return saved
+            ? JSON.parse(saved) as type_Cart[]
+            : [];
+    });
+
+    const [favorites, setFavorites] = useState<number[]>(() => {
+        const saved = localStorage.getItem(name_cookie_favorites_products);
+
+        return saved
+            ? JSON.parse(saved)
+            : [];
+    });
+
+    const [compare, setCompare] = useState<number[]>(() => {
+        const saved = localStorage.getItem(name_cookie_compare_products);
+
+        return saved
+            ? JSON.parse(saved)
+            : [];
+    });
 
     const [itemsLimit, setItemsLimit] = useState<number>(() => {
         const saved = localStorage.getItem(name_cookie_itemsLimit);
@@ -29,10 +60,22 @@ const Card_grid = ({products, categorys}: Props) => {
         return saved ? Number(saved) : 3;
     });
 
-    // const [] = useState<>();
+    useEffect(() => {
+        localStorage.setItem(name_cookie_added_to_cart, JSON.stringify(addedToCart));
+    }, [addedToCart])
+
+    useEffect(() => {
+        localStorage.setItem(name_cookie_favorites_products, JSON.stringify(favorites));
+    }, [favorites])
+
+    useEffect(() => {
+        localStorage.setItem(name_cookie_compare_products, JSON.stringify(compare));
+    }, [compare])
+
 
     useEffect(() => {
         localStorage.setItem(name_cookie_itemsLimit, itemsLimit.toString());
+        setCurrentPage(0);
     }, [itemsLimit])
 
     useEffect(() => {   
@@ -40,49 +83,26 @@ const Card_grid = ({products, categorys}: Props) => {
     }, [itemsPerRow])
 
 
-
-    function getCookie(name: string) {
-        const cookies = document.cookie.split("; ");
-
-        for (const cookie of cookies) {
-            const [key, value] = cookie.split("=");
-
-            if (key === name) {
-                return decodeURIComponent(value);
-            }
-        }
-
-        return "";
-    }
-
-
     const [selectedCategory, setSelectedCategory] = useState<string>(() => {
-        const saved = getCookie(name_cookie_selectedCategory);
-        // console.log("saved:" + saved)
-        return saved;
+        return localStorage.getItem(name_cookie_selectedCategory) || "All_Categorys";
     });
-    const [filteredProducts, setFilteredProducts] = useState<type_Get_Product[]>(products);
 
-
-
-
-    useEffect(() => {
-        if(selectedCategory != ""){
-            setFilteredProducts(products.filter(item => item.category === selectedCategory))
-            document.cookie = "selectedCategory = " + selectedCategory + ";";
-        }
-        else setFilteredProducts(products)
-
-    }, [selectedCategory, products])
+    const filteredProducts = useMemo(() => {
+        return selectedCategory != "All_Categorys"
+            ? products.filter(item => item.category === selectedCategory)
+            : products;
+    }, [selectedCategory, products]);
 
     useEffect(() => {
-        if(selectedCategory != ""){
-            setFilteredProducts(products.filter(item => item.category === selectedCategory))
-            document.cookie = "selectedCategory = " + selectedCategory + ";";
-        }
-        else setFilteredProducts(products)
+        setCurrentPage(0);
+    }, [filteredProducts]);
 
-    }, [selectedCategory, products])
+    useEffect(() => {
+        setCurrentPage(0);
+        if(selectedCategory != ""){
+            localStorage.setItem(name_cookie_selectedCategory, selectedCategory);
+        }
+    }, [selectedCategory])
 
 
     const changeCategory = (selectCategory: string) => {
@@ -91,20 +111,25 @@ const Card_grid = ({products, categorys}: Props) => {
 
     return(
     <>
+        <div className="container">
+            <div className={cl.grid_container}>
+                <Filters categorys={categorys} changeCategory={changeCategory} selectedCategory={selectedCategory}/>
 
-        <div className={cl.grid_container}>
-            <Filters categorys={categorys} changeCategory={changeCategory}/>
+                <div>
+                    <div className={cl.toolbar}>
+                        <Items_limit_UI value={itemsLimit} setValue={setItemsLimit}/>
+                        <Items_per_row_UI value={itemsPerRow} setValue={setItemsPerRow}/>
+                    </div>
 
-            <div>
-                <div style={{display: "flex", gap: "20px", alignItems: "center", justifyContent: "end", marginBottom: "20px", marginRight: "50px"}}>
-                    <Items_limit_UI value={itemsLimit} setValue={setItemsLimit}/>
-                    <Items_per_row_UI value={itemsPerRow} setValue={setItemsPerRow}/>
-                </div>
+                    <div className={`${cl.grid_products_container} ${itemsPerRow == 2 ? cl.grid_2x2 : itemsPerRow == 3 ? cl.grid_3x3 : cl.grid_4x4}`}>    
+                        {filteredProducts.slice(currentPage*itemsLimit, (currentPage+1)*itemsLimit).map((product) => (
+                            <Card_Product key={product.id} product={product} favoriteProducts={favorites} setFavorites={setFavorites} compare={compare} setCompare={setCompare} addedToCart={addedToCart} setAddedToCart={setAddedToCart}/>
+                        ))}
+                    </div>
 
-                <div className={`${cl.grid_products_container} ${itemsPerRow == 2 ? cl.grid_2x2 : itemsPerRow == 3 ? cl.grid_3x3 : cl.grid_4x4}`}>    
-                    {filteredProducts.slice(0, itemsLimit).map((product) => (
-                        <Card_Product key={product.id} product={product}/>
-                    ))}
+                    <div className={cl.div_pagination}>
+                        <Pagination filteredProducts={filteredProducts} itemsLimit={itemsLimit} component={[currentPage, setCurrentPage]}/>
+                    </div>
                 </div>
             </div>
         </div>

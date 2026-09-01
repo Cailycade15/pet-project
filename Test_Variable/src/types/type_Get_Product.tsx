@@ -10,3 +10,7 @@ export type type_Get_Product = {
         count: number
     }
 }
+export type type_Cart = {
+    product: type_Get_Product,
+    quantity: number;
+}

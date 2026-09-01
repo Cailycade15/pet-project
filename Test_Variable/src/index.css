@@ -1,0 +1,78 @@
+:root {
+  /* Colors */
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #e6effd;
+  --color-accent: #f59e0b;
+
+  --color-text: #1a1d29;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+
+  --color-bg: #f7f8fa;
+  --color-surface: #ffffff;
+
+  --color-danger: #ef4444;
+
+  /* Typography */
+  --font-main: "Manrope", "Segoe UI", Arial, Helvetica, sans-serif;
+
+  /* Shape */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(17, 24, 39, 0.06);
+  --shadow-md: 0 8px 24px rgba(17, 24, 39, 0.08);
+  --shadow-lg: 0 20px 40px rgba(17, 24, 39, 0.14);
+
+  /* Motion */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+
+.container {
+  width: 1140px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100vh;
+}
