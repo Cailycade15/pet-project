@@ -18,10 +18,14 @@ const Favorite_Page = () => {
             ?   JSON.parse(saved)
             :   [];
     });
+    
+    console.log(localStorage.getItem("added_to_cart"));
 
     const [favoriteProducts, setFavoriteProducts] = useState<type_Get_Product[]>([]);
 
     useEffect(() => {
+
+        // console.log("BEFORE:", localStorage.getItem("added_to_cart"));
 
         const loadFavorites = async () => {
             const products = await Promise.all(
@@ -41,6 +45,8 @@ const Favorite_Page = () => {
 
         loadFavorites();
         localStorage.setItem("favorites", JSON.stringify(favorites_id));
+
+        // console.log("AFTER:", localStorage.getItem("added_to_cart"));
     }, [favorites_id]);
 
 
@@ -86,6 +92,7 @@ const Favorite_Page = () => {
                     className={cl.clear_button}
                     onClick={() => {
                         localStorage.removeItem(name_cookie_favorites_products);
+                        setFavorites_id([]);
                         setFavoriteProducts([]);
                     }}
                 >

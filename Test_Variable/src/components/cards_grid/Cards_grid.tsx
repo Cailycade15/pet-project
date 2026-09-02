@@ -118,8 +118,6 @@ const Card_grid = ({products, categorys}: Props) => {
     useEffect(() => {
         const saved = localStorage.getItem(name_cookie_added_to_cart);
 
-        if(saved === undefined) return;
-
         setAddedToCart(
             saved
                 ? JSON.parse(saved) as type_Cart[]

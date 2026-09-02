@@ -111,8 +111,6 @@ const Mini_Cart = () => {
         );
 
         cartUpdated();
-
-        console.log("Added:", newCart);
     };
 
 

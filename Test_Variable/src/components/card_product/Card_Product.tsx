@@ -79,6 +79,10 @@ const Card_Product = ({product, favoriteProducts, setFavorites, compare, setComp
 
         setAddedToCart?.(newCart);
 
+        console.log("Added: " + addedToCart);
+        console.log("localStorage: " + localStorage.getItem(name_cookie_added_to_cart))
+
+
         // setAddedToCart?.(prev => {
         //     const exists = prev.some(
         //         item => item.product.id === product.id
@@ -104,9 +108,10 @@ const Card_Product = ({product, favoriteProducts, setFavorites, compare, setComp
 
     
 
-    useEffect(() => {
-        localStorage.setItem("added_to_cart", JSON.stringify(addedToCart));
-    }, [addedToCart])
+    // useEffect(() => {
+    //     console.log("Added: " + addedToCart);
+    //     localStorage.setItem("added_to_cart", JSON.stringify(addedToCart));
+    // }, [addedToCart])
 
 
     const isAddedToCart = addedToCart?.some(
